@@ -1,0 +1,49 @@
+import pandas as pd
+
+# given age 
+age = pd.Series([5,6,7,8])
+# given height 
+height  = pd.Series([12,14,17,18])
+
+# pc1 using lambda 1 = 9.20 and eigen vector 1 = [7 15] 
+pc1 = pd.Series([-3.58,-1.34,1.8,3.13])
+
+# Correlation between age and pca
+corr_age_pc1 = age.corr(pc1);
+print("Correlation between age and pc1 is : ", corr_age_pca)
+
+# Correlation between height and pca 
+corr_height_pc1 = height.corr(pc1)
+print("Correlation between height and pca is : ", corr_height_pca)
+
+# Correlation between age and height
+corr_age_height = height.corr(age)
+print("Correlation between age and height is : ", corr_age_height)
+
+
+# pc2 using lambda 2 = 0.045 and eigen vector 2 = [-15 7]
+pc2 = pd.Series([-0.015,-0.078,0.296,-0.203])
+corr_age_pc2 = age.corr(pc2)
+print("correlation betweeen age and pc2", corr_age_pc2)
+corr_height_pc2 = height.corr(pc2)
+print("correlation between height and pc2", corr_height_pc2)
+
+age_df = age.to_frame('age')
+height_df = height.to_frame('height')
+pc1_df = pc1.to_frame('PC 1')
+pc2_df = pc2.to_frame('PC 2')
+
+# Plot between age and pc1
+age_pc1_df = pd.merge(pc1_df, age_df, left_index =True, right_index = True)
+print(age_pc1_df.plot())
+
+# plot between height and pc1
+height_pc1_df = pd.merge(pc1_df, height_df, left_index=True, right_index=True)
+print(height_pc1_df.plot())
+
+# plot between age height and pc1
+age_height_pc1_df = pd.merge(age_pc1_df, height_df, left_index=True, right_index=True)
+print(age_height_pc1_df.plot())
+
+age_height_pc1_pc2_df = pd.merge(age_height_pc1_df, pc2_df, left_index=True, right_index=True)
+print(age_height_pc1_pc2_df.plot())
